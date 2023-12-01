@@ -6,8 +6,8 @@ To run the demo follow these steps:
     ```sh
 
     # Make sure you have the above prerequisites installed already!
-    git clone https://github.com/Daltonic/freshers.git freshers
-    cd frehsers # Navigate to the new folder.
+    git clone https://github.com/longjos123/payment_coin.git
+    cd payment_coin # Navigate to the new folder.
     yarn install # Installs all the dependencies.
     ```
 2. Create an Alchemy, Firebase, and CometChat project, copy and paste your key in the spaces below.
