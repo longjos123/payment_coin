@@ -13,7 +13,7 @@ To run the demo follow these steps:
 2. Create an Alchemy, Firebase, and CometChat project, copy and paste your key in the spaces below.
 2. Update the `.env` file with the following details.
     ```sh
-    PUBLIC_URL="" //URL local
+    PUBLIC_URL="" //URL ENVIRONMENT
 
     ENDPOINT_URL="" // RPC Có thể dùng RPC Alchemy
     SECRET_KEY="" // API Key Alchemy
