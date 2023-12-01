@@ -2,8 +2,10 @@ import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { logInWithEmailAndPassword } from '../firebase'
 import { loginWithCometChat } from '../cometChat'
-import { setAlert } from '../store'
-import Button from '@material-tailwind/react/Button'
+import { setAlert, setGlobalState } from '../store'
+import '../assets/css/login/main.css'
+import '../assets/css/login/util.css'
+import imageLogin from '../assets/images/img-01.png'
 
 const Login = () => {
   const [email, setEmail] = useState('')
@@ -30,45 +32,62 @@ const Login = () => {
   }
 
   return (
-    <div className="relative flex flex-col justify-center items-center">
-      <div className="mt-10 ">
-        <form
-          onSubmit={handleLogin}
-          className="relative flex w-full flex-wrap items-stretch w-96 px-8"
-        >
-          <h4 className="font-semibold text-xl my-4">Login</h4>
-          <div className="relative flex w-full flex-wrap items-stretch mb-3">
-            <input
-              type="email"
-              className="px-3 py-3 placeholder-blueGray-300 text-blueGray-600 relative bg-white bg-white rounded text-sm border border-blueGray-300 outline-none focus:outline-none focus:ring w-full pl-10"
-              placeholder="Email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-            />
+    <div className="limiter">
+      <div className="container-login100">
+        <div className="wrap-login100">
+          <div className="login100-pic js-tilt" data-tilt="">
+            <img src={imageLogin} alt="IMG" />
           </div>
-          <div className="relative flex w-full flex-wrap items-stretch mb-3">
-            <input
-              type="password"
-              className="px-3 py-3 placeholder-blueGray-300 text-blueGray-600 relative bg-white bg-white rounded text-sm border border-blueGray-300 outline-none focus:outline-none focus:ring w-full pl-10"
-              placeholder="************"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            />
-          </div>
-
-          <div className="relative flex w-full flex-wrap items-stretch justify-between items-center">
-            <Link className="text-green-500" to="/signup">
-              New user sign up
-            </Link>
-            <Button color="green" ripple="light" type="submit">
-              Sign In
-            </Button>
-          </div>
-        </form>
+          <form onSubmit={ handleLogin } className="login100-form validate-form">
+            <span className="login100-form-title">Login</span>
+            <div
+              className="wrap-input100 validate-input"
+              data-validate="Valid email is required: ex@abc.xyz"
+            >
+              <input
+                className="input100"
+                type="text"
+                name="email"
+                value={email}
+                onChange={ (e) => setEmail(e.target.value) }
+                placeholder="Email"
+              />
+              <span className="focus-input100" />
+              <span className="symbol-input100">
+                <i className="fa fa-envelope" aria-hidden="true" />
+              </span>
+            </div>
+            <div
+              className="wrap-input100 validate-input"
+              data-validate="Password is required"
+            >
+              <input
+                className="input100"
+                type="password"
+                name="pass"
+                value={password}
+                onChange={ (e) => setPassword(e.target.value) }
+                placeholder="Password"
+              />
+              <span className="focus-input100" />
+              <span className="symbol-input100">
+                <i className="fa fa-lock" aria-hidden="true" />
+              </span>
+            </div>
+            <div className="container-login100-form-btn">
+              <button className="login100-form-btn">Login</button>
+            </div>
+            <div className="text-center p-t-136">
+              <a className="txt2" href="/signup">
+                Create your Account
+                <i className="fa fa-long-arrow-right m-l-5" aria-hidden="true" />
+              </a>
+            </div>
+          </form>
+        </div>
       </div>
     </div>
+
   )
 }
 

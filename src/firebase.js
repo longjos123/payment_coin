@@ -24,12 +24,13 @@ import {
 } from 'firebase/firestore'
 
 const firebaseConfig = {
-  apiKey: process.env.REACT_APP_FB_AUTH_KEY,
-  authDomain: 'fresher-a5113.firebaseapp.com',
-  projectId: 'fresher-a5113',
-  storageBucket: 'fresher-a5113.appspot.com',
-  messagingSenderId: '443136794867',
-  appId: process.env.REACT_APP_FB_APP_ID,
+  apiKey: "AIzaSyCsVGUVZD5sm-2TutMVVP_WMQUTpRFpwmg",
+  authDomain: "coin-6d350.firebaseapp.com",
+  projectId: "coin-6d350",
+  storageBucket: "coin-6d350.appspot.com",
+  messagingSenderId: "17942632899",
+  appId: "1:17942632899:web:2fd8e2ec13475d294e8576",
+  measurementId: "G-MNC7XCJCQP"
 }
 
 const app = initializeApp(firebaseConfig)
@@ -83,9 +84,11 @@ const logout = async () => {
   }
 }
 
-const addToOrders = async (cart) => {
+const addToOrders = async (cart, networkId) => {
   try {
     const order = {
+      buyer: auth.currentUser.uid,
+      payment_type: networkId,
       order: Math.random().toString(36).substring(2, 9).toUpperCase(),
       timestamp: serverTimestamp(),
       cart,
@@ -177,6 +180,20 @@ const deleteProduct = async (product) => {
   }
 }
 
+const getOrders = async () => {
+  try {
+    const querySnapshot = await getDocs(collection(db, "users", auth.currentUser.email, "orders"));
+    const userOrders = [];
+    querySnapshot.forEach((doc) => {
+      userOrders.push({...doc.data()})
+    });
+
+    return userOrders;
+  } catch (error) {
+    setAlert(JSON.stringify(error), 'red')
+  }
+}
+
 export {
   auth,
   db,
@@ -190,4 +207,5 @@ export {
   getProduct,
   updateProduct,
   deleteProduct,
+  getOrders
 }

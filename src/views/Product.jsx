@@ -2,9 +2,11 @@ import Header from '../components/Header'
 import { useEffect, useState } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { Button, CardImage } from '@material-tailwind/react'
-import { getProduct, deleteProduct, auth } from '../firebase'
+import { updateProduct, getProduct, deleteProduct, auth, addPurchase, addToOrders } from '../firebase'
 import { setGlobalState, useGlobalState, setAlert } from '../store'
 import { payWithEthers } from '../shared/Freshers'
+import Menu from '../components/Menu'
+import Footer from '../components/Footer'
 
 const Product = () => {
   const { id } = useParams()
@@ -32,7 +34,14 @@ const Product = () => {
   const handlePayWithEthers = () => {
     const item = { ...product, buyer, price: (product.price / ethToUsd).toFixed(4) }
     payWithEthers(item).then((res) => {
-      if (res) setAlert('Product purchased!')
+      if (res) {
+        const item = product
+        updateProduct({ ...item, stock: (item.stock -= 1) }).then(() => {
+          addToOrders(item, res).then(() => {
+            setAlert('Purchase successfully')
+          })
+        })
+      }
     })
   }
 
@@ -53,99 +62,56 @@ const Product = () => {
     getProduct(id).then((data) => setProduct({ ...data, qty: 1 }))
   }, [id])
 
+
   return (
     <div className="product">
-      <Header />
+      <Menu />
+      <div className="container">
       {!!product ? (
-        <div className="flex flex-wrap justify-start items-center p-10">
-          <div className="mt-4 w-64">
-            <CardImage src={product.imgURL} alt={product.name} />
-          </div>
-
-          <div className="mt-4 lg:mt-0 lg:row-span-6 mx-4">
-            <div>
-              <h1 className="text-2xl font-extrabold tracking-tight text-gray-900 sm:text-3xl">
-                {product.name}
-              </h1>
-              <h2 className="sr-only">Product information</h2>
-              <div className="flex flex-row justify-start items-center">
-                <span className="text-xl font-bold text-green-500">
-                  {toCurrency(product.price)}
-                </span>
-                <span className="text-xs mx-4">
-                  {product.stock} left in stock
-                </span>
-              </div>
-
-              <div className="mt-2 space-y-6">
-                <p className="text-base text-gray-900">{product.description}</p>
-              </div>
+          <div className="row">
+            <div className="col-md-6">
+              <img src={product.imgURL} alt={product.name} />
             </div>
-
-            <div className="mt-4 flex flex-row justify-start items-center space-x-2">
-              <Button
-                onClick={addToCart}
-                color="green"
-                size="md"
-                ripple="light"
-              >
-                Add To Cart
-              </Button>
-
+            <div className="col-md-6">
+              <h2>{product.name}</h2>
+              <p>
+                <strong>Price:</strong> <span className="text-green-800">{toCurrency(product.price)}</span>
+              </p>
+              <p>
+                <strong>Description:</strong> {product.description}
+              </p>
+              <div className="form-group">
+                <label htmlFor="quantity">Quantity: </label>
+                <span> {product.stock} left in stock</span>
+              </div>
+              <button className="btn btn-success" onClick={addToCart}>Add to cart</button>
               {isLoggedIn ? (
                 <>
-                  {auth.currentUser.uid != product.uid &&
+                {auth.currentUser.uid != product.uid &&
                   product.account != buyer ? (
-                    <Button
-                      onClick={handlePayWithEthers}
-                      color="amber"
-                      size="md"
-                      ripple="light"
-                    >
-                      Buy with ETH
-                    </Button>
+                    <button className="btn btn-primary ml-2" onClick={handlePayWithEthers}>Buy with coin</button>
                   ) : null}
 
                   {auth.currentUser.uid == product.uid ? null : (
-                    <Button
-                      onClick={() => navigate('/chat/' + product.uid)}
-                      buttonType="link"
-                      color="green"
-                      size="md"
-                      ripple="light"
-                    >
-                      Chat WIth Seller
-                    </Button>
+                    <button type="button" class="btn btn-info ml-2" onClick={() => navigate('/chat/' + product.uid)}>Chat with seller</button>
                   )}
                 </>
               ) : null}
+
               {isLoggedIn && auth.currentUser.uid == product.uid ? (
                 <>
-                  <Button
-                    onClick={() => navigate('/product/edit/' + id)}
-                    buttonType="link"
-                    color="green"
-                    size="md"
-                    ripple="light"
-                  >
-                    Edit Product
-                  </Button>
-                  <Button
-                    onClick={handleDeleteProduct}
-                    buttonType="link"
-                    color="red"
-                    size="md"
-                    ripple="light"
-                  >
-                    Delete
-                  </Button>
+                  <button className="btn btn-primary ml-2" onClick={() => navigate('/product/edit/' + id)}>Edit</button>
+                  <button type="button" class="btn btn-danger ml-2" onClick={handleDeleteProduct}>Delete</button>
                 </>
               ) : null}
             </div>
           </div>
-        </div>
-      ) : null}
-    </div>
+        ) : null
+      }
+
+      <Footer />
+      </div>
+    </div >
   )
 }
 

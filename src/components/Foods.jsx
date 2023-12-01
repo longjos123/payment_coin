@@ -2,11 +2,22 @@ import Food from './Food'
 
 const Foods = ({ products }) => {
   return (
-    <div className="flex flex-wrap justify-center items-center space-x-3 space-y-3 mt-12 overflow-x-hidden">
-      {products.map((item, i) => (
-        <Food item={item} key={i} />
-      ))}
-    </div>
+    <>
+      <section id="new-arrivals" className="new-arrivals">
+        <div className="container">
+          <div className="section-header">
+            <h2>All Products</h2>
+          </div>
+          <div className="new-arrivals-content">
+            <div className="row">
+              {products.map((item, i) => (
+                <Food item={item} key={i} />
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+    </>
   )
 }
 

@@ -20,6 +20,7 @@ const getContract = async () => {
 const payWithEthers = async (product) => {
   try {
     const web3 = window.web3
+    const networkId = await web3.eth.net.getId()
     const seller = product.account
     const buyer = product.buyer
     const amount = web3.utils.toWei(product.price.toString(), 'ether')
@@ -29,7 +30,7 @@ const payWithEthers = async (product) => {
     await contract.methods
       .payNow(seller, purpose)
       .send({ from: buyer, value: amount })
-    return true
+    return networkId
   } catch (error) {
     setAlert(error.message, 'red')
   }

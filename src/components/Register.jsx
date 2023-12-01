@@ -1,9 +1,9 @@
 import { useState } from 'react'
-import Button from '@material-tailwind/react/Button'
 import { Link, useNavigate } from 'react-router-dom'
 import { registerWithEmailAndPassword, logout } from '../firebase'
 import { signInWithCometChat } from '../cometChat'
 import { setAlert } from '../store'
+import '../assets/css/register/main.css'
 
 const Register = () => {
   const [fullname, setFullname] = useState('')
@@ -55,81 +55,89 @@ const Register = () => {
   }
 
   return (
-    <div className="relative flex flex-col justify-center items-center">
-      <div className="mt-10 ">
-        <form
-          onSubmit={handleRegister}
-          className="relative flex w-full flex-wrap items-stretch w-96 px-8"
-        >
-          <div className="relative flex w-full flex-wrap items-stretch mb-3">
-            <input
-              type="text"
-              className="px-3 py-3 placeholder-blueGray-300 text-blueGray-600 relative bg-white bg-white rounded text-sm border border-blueGray-300 outline-none focus:outline-none focus:ring w-full pl-10"
-              placeholder="Fullname"
-              value={fullname}
-              onChange={(e) => setFullname(e.target.value)}
-              required
-            />
+    <div className="page-wrapper bg-gra-02 p-t-130 p-b-100 font-poppins">
+      <div className="wrapper wrapper--w680">
+        <div className="card card-4">
+          <div className="card-body">
+            <h2 className="title">Registration Form</h2>
+            <form method="POST" onSubmit={handleRegister}>
+              <div className="row row-space">
+                <div className="col-2">
+                  <div className="input-group">
+                    <label className="label float-left">Full name</label>
+                    <input
+                      className="input--style-4"
+                      type="text"
+                      value={fullname}
+                      onChange={(e) => setFullname(e.target.value)}
+                      name="fullname"
+                    />
+                  </div>
+                </div>
+                <div className="col-2">
+                  <div className="input-group">
+                    <label className="label float-left">Email</label>
+                    <input
+                      className="input--style-4"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      type="email" name="email" />
+                  </div>
+                </div>
+              </div>
+              <div className="row row-space">
+                <div className="col-2">
+                  <div className="input-group">
+                    <label className="label float-left">Wallet Address</label>
+                    <input
+                      className="input--style-4"
+                      type="text"
+                      value={account}
+                      onChange={(e) => setAccount(e.target.value)}
+                      name="wallet_address" />
+                  </div>
+                </div>
+
+                <div className="col-2">
+                  <div className="input-group">
+                    <label className="label float-left">Phone Number</label>
+                    <input
+                      className="input--style-4"
+                      type="number"
+                      value={phone}
+                      onChange={(e) => setPhone(e.target.value)}
+                      name="phone" />
+                  </div>
+                </div>
+              </div>
+              <div className="row row-space">
+                <div className="col-2">
+                  <div className="input-group">
+                    <label className="label float-left">Address</label>
+                    <input
+                      value={address}
+                      onChange={(e) => setAddress(e.target.value)}
+                      className="input--style-4"
+                      type="text"
+                      name="address" />
+                  </div>
+                </div>
+                <div className="col-2"></div>
+              </div>
+              <div className="p-t-15">
+                <button className="btn btn--radius-2 btn--blue" type="submit">
+                  Submit
+                </button>
+              </div>
+              <div className="pt-4">
+                <a className="txt2" href="/signin">
+                  Back to login
+                  <i className="fa fa-long-arrow-right m-l-5" aria-hidden="true" />
+                </a>
+              </div>
+            </form>
           </div>
-          <div className="relative flex w-full flex-wrap items-stretch mb-3">
-            <input
-              type="email"
-              className="px-3 py-3 placeholder-blueGray-300 text-blueGray-600 relative bg-white bg-white rounded text-sm border border-blueGray-300 outline-none focus:outline-none focus:ring w-full pl-10"
-              placeholder="Email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-            />
-          </div>
-          <div className="relative flex w-full flex-wrap items-stretch mb-3">
-            <input
-              type="password"
-              className="px-3 py-3 placeholder-blueGray-300 text-blueGray-600 relative bg-white bg-white rounded text-sm border border-blueGray-300 outline-none focus:outline-none focus:ring w-full pl-10"
-              placeholder="************"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            />
-          </div>
-          <div className="relative flex w-full flex-wrap items-stretch mb-3">
-            <input
-              type="number"
-              className="px-3 py-3 placeholder-blueGray-300 text-blueGray-600 relative bg-white bg-white rounded text-sm border border-blueGray-300 outline-none focus:outline-none focus:ring w-full pl-10"
-              placeholder="081 056 8262"
-              value={phone}
-              onChange={(e) => setPhone(e.target.value)}
-              required
-            />
-          </div>
-          <div className="relative flex w-full flex-wrap items-stretch mb-3">
-            <input
-              type="text"
-              className="px-3 py-3 placeholder-blueGray-300 text-blueGray-600 relative bg-white bg-white rounded text-sm border border-blueGray-300 outline-none focus:outline-none focus:ring w-full pl-10"
-              placeholder="Wallet Address"
-              value={account}
-              onChange={(e) => setAccount(e.target.value)}
-              required
-            />
-          </div>
-          <div className="relative flex w-full flex-wrap items-stretch mb-3">
-            <input
-              type="text"
-              className="px-3 py-3 placeholder-blueGray-300 text-blueGray-600 relative bg-white bg-white rounded text-sm border border-blueGray-300 outline-none focus:outline-none focus:ring w-full pl-10"
-              placeholder="Address"
-              value={address}
-              onChange={(e) => setAddress(e.target.value)}
-              required
-            />
-          </div>
-          <div className="relative flex w-full flex-wrap items-stretch justify-between items-center">
-            <Link className="text-green-500" to="/signin">
-              Already a member? sign in
-            </Link>
-            <Button color="green" ripple="light" type="submit">
-              Sign Up
-            </Button>
-          </div>
-        </form>
+        </div>
       </div>
     </div>
   )

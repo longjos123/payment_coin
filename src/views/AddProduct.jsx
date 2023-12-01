@@ -4,7 +4,6 @@ import { addProduct } from '../firebase'
 import { setAlert } from '../store'
 import { useGlobalState } from '../store'
 import Button from '@material-tailwind/react/Button'
-import Header from '../components/Header'
 
 const AddProduct = () => {
   const [name, setName] = useState('')
@@ -30,7 +29,6 @@ const AddProduct = () => {
 
   return (
     <div className="addProduct">
-      <Header />
       <div className="relative flex flex-col justify-center items-center">
         <div className="mt-10 ">
           <form

@@ -1,0 +1,80 @@
+.timeline {
+    list-style-type: none;
+    padding: 0;
+    position: relative;
+  }
+
+  .timeline:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: #007bff; /* Màu sắc của đường thời gian */
+    left: 50%;
+    margin-left: -1px;
+  }
+
+  .timeline-item {
+    margin-bottom: 20px;
+  }
+
+  .timeline-badge {
+    width: 50px;
+    height: 50px;
+    font-size: 18px;
+    text-align: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-left: -25px;
+    margin-top: -25px;
+    border-radius: 50%;
+    z-index: 100;
+    background: #007bff; /* Màu sắc của biểu tượng */
+    color: #fff;
+    line-height: 50px;
+  }
+
+  .timeline-panel {
+    width: 45%;
+    float: left;
+    margin-left: 20px;
+  }
+
+  .timeline-inverted .timeline-panel {
+    float: right;
+    margin-right: 20px;
+  }
+
+  .timeline-heading {
+    text-align: left;
+  }
+
+  .timeline-title {
+    margin-top: 0;
+    color: inherit;
+  }
+
+  .timeline-body {
+    text-align: left;
+  }
+
+  .card {
+    width: 100%;
+  }
+
+  .card-body {
+    margin-top: 10px;
+  }
+
+  .card-title {
+    font-weight: 800;
+  }
+
+  .card-img-top {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 5px;
+  }

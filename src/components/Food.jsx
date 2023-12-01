@@ -1,11 +1,5 @@
 import React from 'react'
-import Card from '@material-tailwind/react/Card'
 import CardImage from '@material-tailwind/react/CardImage'
-import CardBody from '@material-tailwind/react/CardBody'
-import CardFooter from '@material-tailwind/react/CardFooter'
-import H6 from '@material-tailwind/react/Heading6'
-import Paragraph from '@material-tailwind/react/Paragraph'
-import Button from '@material-tailwind/react/Button'
 import { setAlert, setGlobalState, useGlobalState } from '../store'
 import { Link } from 'react-router-dom'
 
@@ -32,56 +26,37 @@ const Food = ({ item }) => {
     })
 
   return (
-    <div className="mx-4 my-6 w-64">
-      <Card>
-        <Link to={`/product/` + item.id}>
-          <CardImage src={item.imgURL} alt={item.name} />
-        </Link>
-
-        <CardBody>
+    <div className="col-md-3 col-sm-4">
+      <div className="single-new-arrival">
+        <div className="single-new-arrival-bg">
           <Link to={`/product/` + item.id}>
-            <H6 color="gray">{item.name}</H6>
+            <CardImage src={item.imgURL} alt={item.name} />
           </Link>
-
-          <Paragraph color="gray">
-            Don't be scared of the truth because we need to...
-          </Paragraph>
-
-          <div
-            color="black"
-            className="flex flex-row justify-between items-center"
-          >
-            <span className="font-semibold text-green-500">
-              {toCurrency(item.price)}
-            </span>
-            <span className="text-xs text-black">{item.stock} in stock</span>
+          <div className="single-new-arrival-bg-overlay" />
+          <div className="sale bg-1">
+            <p>sale</p>
           </div>
-        </CardBody>
-
-        <CardFooter>
-          {item.stock > 0 ? (
-            <Button
-              onClick={() => addToCart(item)}
-              color="green"
-              size="md"
-              ripple="light"
-              disabled={item.stock == 0}
-            >
-              Add To Cart
-            </Button>
-          ) : (
-            <Button
-              color="green"
-              size="md"
-              buttonType="outline"
-              ripple="light"
-              disabled
-            >
-              Out of Stock
-            </Button>
-          )}
-        </CardFooter>
-      </Card>
+          <div className="new-arrival-cart">
+            <p>
+              <span className="lnr lnr-cart" />
+              <a href="#"
+                disabled={item.stock == 0}
+                onClick={() => addToCart(item)}>
+                add <span>to </span> cart
+              </a>
+            </p>
+            <p className="arrival-review pull-right">
+              <span className="lnr lnr-heart" />
+              <span className="lnr lnr-frame-expand" />
+            </p>
+          </div>
+        </div>
+        <h4>
+          <a href={`/product/` + item.id}>{item.name}</a>
+        </h4>
+        <span>{item.stock} in stock</span>
+        <p className="arrival-product-price">{toCurrency(item.price)}</p>
+      </div>
     </div>
   )
 }

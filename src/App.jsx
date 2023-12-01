@@ -13,6 +13,7 @@ import Cart from './views/Cart'
 import Chat from './views/Chat'
 import ChatList from './views/ChatList'
 import { loadWeb3 } from './shared/Freshers'
+import PurchaseHistory from './views/PurchaseHistory'
 
 function App() {
   const [user, setUser] = useState(null)
@@ -93,6 +94,7 @@ function App() {
                 </AuthGuard>
               }
             />
+            <Route path="purchase-history" element={<PurchaseHistory />} />
             <Route path="cart" element={<Cart />} />
             <Route path="signin" element={<SignIn />} />
             <Route path="signup" element={<SignUp />} />
