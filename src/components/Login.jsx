@@ -78,10 +78,10 @@ const Login = () => {
               <button className="login100-form-btn">Login</button>
             </div>
             <div className="text-center p-t-136">
-              <a className="txt2" href="/signup">
+              <Link className="txt2" to="/signup">
                 Create your Account
                 <i className="fa fa-long-arrow-right m-l-5" aria-hidden="true" />
-              </a>
+              </Link>
             </div>
           </form>
         </div>

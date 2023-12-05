@@ -2,7 +2,7 @@ import { CometChat } from '@cometchat-pro/chat'
 import { sendMessage, getMessages } from '../cometChat'
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import Header from '../components/Header'
+import Menu from '../components/Menu'
 
 const Chat = () => {
   const { receiverID } = useParams()
@@ -49,7 +49,7 @@ const Chat = () => {
 
   return (
     <div className="chat">
-      <Header />
+      <Menu />
       <div className="flex justify-center items-center p-10">
         <div className="relative mx-auto w-full">
           <div className="border-0 rounded-lg relative flex flex-col w-full">

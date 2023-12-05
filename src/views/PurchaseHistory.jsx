@@ -22,7 +22,12 @@ const PurchaseHistory = () => {
     return (
         <div>
             <Menu />
-            <Purchase purchases={purchases} />
+            <div className="container">
+            <h2>Purchase History</h2>
+                {purchases.map((item) => (
+                    <Purchase purchase={item} />
+                ))}
+            </div>
             <Footer />
         </div>
     );

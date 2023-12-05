@@ -9,6 +9,8 @@
     "eject": "react-scripts eject"
   },
   "dependencies": {
+    "@babel/core": "^7.23.5",
+    "@babel/preset-env": "^7.23.5",
     "@cometchat-pro/chat": "3.0.6",
     "@material-tailwind/react": "0.3.4",
     "firebase": "^9.6.8",

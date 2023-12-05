@@ -17,6 +17,13 @@ const getContract = async () => {
   }
 }
 
+const getNetworkId = async () => {
+  const web3 = window.web3
+  const networkId = await web3.eth.net.getId()
+
+  return networkId;
+}
+
 const payWithEthers = async (product) => {
   try {
     const web3 = window.web3
@@ -63,4 +70,4 @@ const loadWeb3 = async () => {
   }
 }
 
-export { loadWeb3, connectWallet, payWithEthers }
+export { loadWeb3, connectWallet, payWithEthers, getNetworkId }

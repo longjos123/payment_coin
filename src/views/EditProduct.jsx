@@ -1,10 +1,10 @@
-import Header from '../components/Header'
 import Button from '@material-tailwind/react/Button'
 import { useEffect, useState } from 'react'
 import { Link, useParams, useNavigate } from 'react-router-dom'
 import { updateProduct, getProduct, auth } from '../firebase'
 import { setAlert } from '../store'
 import { useGlobalState } from '../store'
+import Menu from '../components/Menu'
 
 const EditProduct = () => {
   const { id } = useParams()
@@ -50,7 +50,7 @@ const EditProduct = () => {
 
   return (
     <div className="editProduct">
-      <Header />
+      <Menu />
       <div className="relative flex flex-col justify-center items-center">
         <div className="mt-10 ">
           <form

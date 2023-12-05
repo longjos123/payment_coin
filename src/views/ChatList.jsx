@@ -1,8 +1,8 @@
-import Header from '../components/Header'
 import { getConversations } from '../cometChat'
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { auth } from '../firebase'
+import Menu from '../components/Menu'
 
 const ChatList = () => {
   const [customers, setCustomers] = useState([])
@@ -18,7 +18,7 @@ const ChatList = () => {
 
   return (
     <div className="chatList">
-      <Header />
+      <Menu />
       <div className="flex justify-center items-center p-10">
         <div className="relative mx-auto w-full">
           <div className="border-0 rounded-lg relative flex flex-col w-full">

@@ -1,15 +1,19 @@
 import CartItem from '../components/CartItem'
-import Header from '../components/Header'
 import { Link } from 'react-router-dom'
 import { Button } from '@material-tailwind/react'
 import { useEffect, useState } from 'react'
 import { addToOrders } from '../firebase'
 import { setAlert, setGlobalState, useGlobalState } from '../store'
+import Menu from '../components/Menu'
+import Footer from '../components/Footer'
+import { payWithEthers } from '../shared/Freshers'
 
 const Cart = () => {
   const [cart] = useGlobalState('cart')
   const [isLoggedIn] = useGlobalState('isLoggedIn')
   const [total, setTotal] = useState(0)
+  const [buyer] = useGlobalState('connectedAccount')
+  const [ethToUsd] = useGlobalState('ethToUsd')
 
   const getTotal = () => {
     let total = 0
@@ -19,11 +23,29 @@ const Cart = () => {
 
   const placeOrder = () => {
     if (!isLoggedIn) return
-
-    addToOrders(cart).then((data) => {
-      setGlobalState('cart', [])
-      setAlert(`Order Placed with Id: ${data.order}`)
+    const item = {
+      buyer: buyer,
+      price: 0,
+      name: '',
+      account: ''
+    }
+    cart.map((product) => {
+      item.account = product.account;
+      item.price = parseFloat(item.price) + (parseFloat(product.price) * product.qty);
+      item.name = item.name + product.name
     })
+    var items = cart
+
+    const productCheckout = { ...item, price: (item.price / ethToUsd).toFixed(4) }
+
+    payWithEthers(productCheckout).then((networkId) => {
+      addToOrders(items, networkId).then((data) => {
+        setGlobalState('cart', [])
+        if (data) {
+          setAlert(`Order Placed with Id: ${data.order}`)
+        }
+      })
+    }) 
   }
 
   const clearCart = () => {
@@ -40,43 +62,32 @@ const Cart = () => {
 
   return (
     <div className="addProduct">
-      <Header />
-      <div className="relative flex flex-col justify-center items-center">
+      <Menu />
+      <div className="container">
+        <h2>Your Shopping Cart</h2>
         {cart.length > 0 ? (
-          <div className="mt-10 ">
-            <div className="relative flex w-full flex-wrap items-stretch px-8">
-              <div className="flex flex-wrap justify-center items-center h-64 overflow-y-scroll">
-                {cart.map((item, i) => (
-                  <CartItem key={i} item={item} />
-                ))}
-              </div>
-            </div>
-            <div className="flex flex-row justify-between items-center my-4 px-8">
-              <h4>Grand Total:</h4>
-              <span className="text-sm text-green-500">
-                {toCurrency(total)}
-              </span>
-            </div>
-            <div className="flex flex-row justify-between items-center my-4 px-8">
-              <Button
-                onClick={clearCart}
-                color="red"
-                ripple="light"
-                type="submit"
-              >
-                Clear Cart
-              </Button>
-              {isLoggedIn ? (
-                <Button
-                  onClick={placeOrder}
-                  color="green"
-                  ripple="light"
-                  type="submit"
-                >
-                  Place Order
-                </Button>
-              ) : null}
-            </div>
+          <div className="cart">
+          <table className="table mt-8">
+            <thead>
+              <tr>
+                <th>Image</th>
+                <th>Product Name</th>
+                <th>Quantity</th>
+                <th>Price</th>
+                <th>Total Price</th>
+              </tr>
+            </thead>
+            <tbody>
+              {/* Replace the following rows with your actual product data */}
+              {cart.map((item, i) => (
+                <CartItem key={i} item={item} />
+              ))}
+              {/* Add more rows as needed */}
+            </tbody>
+          </table>
+          <p className="total fa-2x">Total Price: {toCurrency(total)}</p>
+          <button class="btn btn-warning" onClick={clearCart}><i class="fas fa-trash-alt"></i> Clear Cart</button>
+          <button class="btn btn-success ml-2" onClick={placeOrder}><i class="fas fa-shopping-cart"></i> Place Order</button>
           </div>
         ) : (
           <div className="mt-10 text-center">
@@ -87,6 +98,7 @@ const Cart = () => {
           </div>
         )}
       </div>
+      <Footer />
     </div>
   )
 }

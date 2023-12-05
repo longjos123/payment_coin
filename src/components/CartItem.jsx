@@ -41,25 +41,13 @@ const CartItem = ({ item }) => {
   }
 
   return (
-    <Card className="flex flex-row justify-between items-end my-4">
-      <Link
-        to={'/product/' + item.id}
-        className="h-12 w-12 object-contain mr-4"
-      >
-        <Image
-          src={item.imgURL}
-          alt={item.name}
-          rounded={false}
-          raised={true}
-        />
-      </Link>
-
-      <CardStatusFooter
-        color="green"
-        amount={toCurrency(item.price)}
-        date={item.name}
-      >
-        <div className="flex flex-row justify-center items-center mx-4">
+      <tr>
+      <td>
+        <img src={item.imgURL} alt="Product 1" className='w-48' />
+      </td>
+      <td>{item.name}</td>
+      <td>
+      <div className="flex flex-row items-center mx-4">
           <Button
             color="green"
             buttonType="filled"
@@ -87,12 +75,10 @@ const CartItem = ({ item }) => {
             +
           </Button>
         </div>
-      </CardStatusFooter>
-
-      <span className="text-sm text-gray-500">
-        Sub Total: {toCurrency(item.price * qty)}
-      </span>
-    </Card>
+      </td>
+      <td>{toCurrency(item.price)}</td>
+      <td>{toCurrency(item.price * qty)}</td>
+    </tr>
   )
 }
 

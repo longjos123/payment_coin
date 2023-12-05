@@ -113,6 +113,16 @@ const Register = () => {
               <div className="row row-space">
                 <div className="col-2">
                   <div className="input-group">
+                    <label className="label float-left">Password</label>
+                    <input
+                      onChange={(e) => setPassword(e.target.value)}
+                      className="input--style-4"
+                      type="password"
+                      name="password" />
+                  </div>
+                </div>
+                <div className="col-2">
+                  <div className="input-group">
                     <label className="label float-left">Address</label>
                     <input
                       value={address}
@@ -122,7 +132,6 @@ const Register = () => {
                       name="address" />
                   </div>
                 </div>
-                <div className="col-2"></div>
               </div>
               <div className="p-t-15">
                 <button className="btn btn--radius-2 btn--blue" type="submit">
@@ -130,10 +139,10 @@ const Register = () => {
                 </button>
               </div>
               <div className="pt-4">
-                <a className="txt2" href="/signin">
+                <Link className="txt2" to="/signin">
                   Back to login
                   <i className="fa fa-long-arrow-right m-l-5" aria-hidden="true" />
-                </a>
+                </Link>
               </div>
             </form>
           </div>

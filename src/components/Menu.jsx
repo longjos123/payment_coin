@@ -22,6 +22,7 @@ const Menu = () => {
             }
         })
     }
+
     return (
         <header id="home" className="welcome-hero">
             <HeaderCarousel />
@@ -57,45 +58,45 @@ const Menu = () => {
                             {/* Start Atribute Navigation */}
                             <div className="attr-nav">
                                 <ul>
-                                    <li className="search">
-                                        <a href="/purchase-history">
-                                            Purchase history
-                                        </a>
-                                    </li>
                                     {/*/.search*/}
                                     {isLoggedIn ? (
                                         <>
+                                            <li className="search">
+                                                <Link to="/purchase-history">
+                                                    Purchase history
+                                                </Link>
+                                            </li>
                                             {connectedAccount ? null : (
                                                 <li>
-                                                    <a
+                                                    <Link
                                                         onClick={connectWallet}
                                                         active="light"
                                                         ripple="light"
                                                     >
                                                         <span className="cursor-pointer">Connect Wallet</span>
-                                                    </a>
+                                                    </Link>
                                                 </li>
                                             )}
                                             <li className="nav-setting">
-                                                <a href="#" onClick={handleSignOut}>
+                                                <Link to="#" onClick={handleSignOut}>
                                                     <i className="fa fa-sign-out" aria-hidden="true" />
-                                                </a>
+                                                </Link>
                                             </li>
                                         </>
                                     ) : (
                                         <li ripple="light">
-                                            <a href="/signin" className="cursor-pointer">
+                                            <Link to="/signin" className="cursor-pointer">
                                                 Login
-                                            </a>
+                                            </Link>
                                         </li>
                                     )}
 
                                     {/*/.search*/}
                                     <li className="search">
-                                        <a href="/cart">
+                                        <Link to="/cart">
                                             <span className="lnr lnr-cart" />
                                             <span className="badge badge-bg-1">{cart.length}</span>
-                                        </a>  
+                                        </Link>
                                     </li>
                                     {/*/.dropdown*/}
                                 </ul>
@@ -112,9 +113,9 @@ const Menu = () => {
                                 >
                                     <i className="fa fa-bars" />
                                 </button>
-                                <a className="navbar-brand" href="index.html">
+                                <Link className="navbar-brand" to="index.html">
                                     furn.
-                                </a>
+                                </Link>
                             </div>
                             {/*/.navbar-header*/}
                             {/* End Header Navigation */}
@@ -129,10 +130,10 @@ const Menu = () => {
                                     data-out="fadeOutUp"
                                 >
                                     <li className=" scroll active">
-                                        <a href="/">home</a>
+                                        <Link to="/">home</Link>
                                     </li>
                                     <li className="scroll">
-                                        <a href="product/add">Add Product</a>
+                                        <Link to="product/add">Add Product</Link>
                                     </li>
                                 </ul>
                                 {/*/.nav */}

@@ -1,80 +1,81 @@
-.timeline {
-    list-style-type: none;
-    padding: 0;
-    position: relative;
-  }
 
-  .timeline:before {
-    content: '';
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    width: 2px;
-    background: #007bff; /* Màu sắc của đường thời gian */
-    left: 50%;
-    margin-left: -1px;
-  }
-
-  .timeline-item {
-    margin-bottom: 20px;
-  }
-
-  .timeline-badge {
-    width: 50px;
-    height: 50px;
-    font-size: 18px;
-    text-align: center;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    margin-left: -25px;
-    margin-top: -25px;
-    border-radius: 50%;
-    z-index: 100;
-    background: #007bff; /* Màu sắc của biểu tượng */
-    color: #fff;
-    line-height: 50px;
-  }
-
-  .timeline-panel {
-    width: 45%;
-    float: left;
-    margin-left: 20px;
-  }
-
-  .timeline-inverted .timeline-panel {
-    float: right;
-    margin-right: 20px;
-  }
-
-  .timeline-heading {
-    text-align: left;
-  }
-
-  .timeline-title {
-    margin-top: 0;
-    color: inherit;
-  }
-
-  .timeline-body {
-    text-align: left;
-  }
-
-  .card {
-    width: 100%;
-  }
-
-  .card-body {
-    margin-top: 10px;
-  }
-
-  .card-title {
-    font-weight: 800;
-  }
-
-  .card-img-top {
-    width: 100%;
-    height: 300px;
-    object-fit: cover;
+  .purchase-container {
+    background-color: #ffffff;
+    border: 1px solid #ced4da;
     border-radius: 5px;
-  }
+    margin-bottom: 20px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.purchase-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.purchase-details {
+    flex: 1;
+}
+
+.product-container {
+    display: flex;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #ced4da;
+    padding-bottom: 10px;
+}
+
+.product-container:last-child {
+    border-bottom: none;
+}
+
+.product-info {
+    flex: 1;
+    margin-left: 10px;
+}
+
+.purchase-container .wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-width: 300px; /* Độ rộng tối đa của div wrapper */
+  min-width: 300px;
+  margin: 0 auto;
+  border-radius: 5px;
+  
+}
+
+.purchase-container .image-container {
+  max-width: 100%; /* Ảnh sẽ không vượt quá chiều rộng của image-container */
+  max-height: 100%; /* Ảnh sẽ không vượt quá chiều cao của image-container */
+  width: 300px; /* Chiều rộng của ảnh tự động điều chỉnh để giữ tỷ lệ khung hình */
+  height: auto; /* Chiều cao của ảnh tự động điều chỉnh để giữ tỷ lệ khung hình */
+  border-radius: 5px; /* Đường cong góc ảnh (tuỳ chọn) */
+}
+
+.purchase-container .image-container img {
+  width: fit-content;
+}
+
+.purchase-container h2 {
+    color: #343a40;
+}
+
+.purchase-container h4 {
+    margin-bottom: 0;
+    color: #343a40;
+}
+
+.purchase-container span {
+    color: #6c757d;
+}
+
+.purchase-container p {
+    margin-bottom: 5px;
+}
+
+.purchase-container h3 {
+    margin-bottom: 5px;
+    color: #007bff;
+}

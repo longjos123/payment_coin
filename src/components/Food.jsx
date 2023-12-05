@@ -39,11 +39,11 @@ const Food = ({ item }) => {
           <div className="new-arrival-cart">
             <p>
               <span className="lnr lnr-cart" />
-              <a href="#"
+              <Link to="#"
                 disabled={item.stock == 0}
                 onClick={() => addToCart(item)}>
                 add <span>to </span> cart
-              </a>
+              </Link>
             </p>
             <p className="arrival-review pull-right">
               <span className="lnr lnr-heart" />
@@ -52,7 +52,7 @@ const Food = ({ item }) => {
           </div>
         </div>
         <h4>
-          <a href={`/product/` + item.id}>{item.name}</a>
+          <Link to={`/product/` + item.id}>{item.name}</Link>
         </h4>
         <span>{item.stock} in stock</span>
         <p className="arrival-product-price">{toCurrency(item.price)}</p>

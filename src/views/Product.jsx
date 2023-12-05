@@ -1,8 +1,7 @@
-import Header from '../components/Header'
 import { useEffect, useState } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { Button, CardImage } from '@material-tailwind/react'
-import { updateProduct, getProduct, deleteProduct, auth, addPurchase, addToOrders } from '../firebase'
+import { updateProduct, getProduct, deleteProduct, auth, addToOrders } from '../firebase'
 import { setGlobalState, useGlobalState, setAlert } from '../store'
 import { payWithEthers } from '../shared/Freshers'
 import Menu from '../components/Menu'
@@ -18,7 +17,7 @@ const Product = () => {
   const [ethToUsd] = useGlobalState('ethToUsd')
 
   const addToCart = () => {
-    const item = product
+    var item = product
     item.added = true
     let cartItems = [...cart]
     const newItem = { ...item, qty: (item.qty += 1), stock: (item.stock -= 1) }
@@ -32,12 +31,13 @@ const Product = () => {
   }
 
   const handlePayWithEthers = () => {
-    const item = { ...product, buyer, price: (product.price / ethToUsd).toFixed(4) }
+    var item = { ...product, buyer, price: (product.price / ethToUsd).toFixed(4) }
+    console.log(item);
     payWithEthers(item).then((res) => {
       if (res) {
-        const item = product
-        updateProduct({ ...item, stock: (item.stock -= 1) }).then(() => {
-          addToOrders(item, res).then(() => {
+        var productAddOrder = product
+        updateProduct({ ...product, stock: (item.stock -= 1) }).then(() => {
+          addToOrders([productAddOrder], res).then(() => {
             setAlert('Purchase successfully')
           })
         })

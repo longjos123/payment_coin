@@ -9,6 +9,7 @@ const { setGlobalState, useGlobalState } = createGlobalState({
   ethToUsd: 0,
 })
 
+
 const setAlert = (msg, color = 'amber') => {
   setGlobalState('alert', { show: true, msg, color })
   setTimeout(() => {

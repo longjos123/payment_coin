@@ -71,6 +71,7 @@ const registerWithEmailAndPassword = async (
 
     return user
   } catch (error) {
+    console.log(error);
     setAlert(JSON.stringify(error), 'red')
   }
 }
@@ -84,15 +85,21 @@ const logout = async () => {
   }
 }
 
-const addToOrders = async (cart, networkId) => {
+const addToOrders = async (carts, networkId) => {
   try {
+    var total = 0;
+    carts.map((item) => {
+      total = parseFloat(total) + (parseFloat(item.price) * item.qty);
+    })
     const order = {
       buyer: auth.currentUser.uid,
       payment_type: networkId,
       order: Math.random().toString(36).substring(2, 9).toUpperCase(),
       timestamp: serverTimestamp(),
-      cart,
+      carts,
+      total: total
     }
+    console.log(order);
 
     await addDoc(
       collection(db, `users/${auth.currentUser.email}`, 'orders'),
@@ -100,6 +107,7 @@ const addToOrders = async (cart, networkId) => {
     )
     return order
   } catch (error) {
+    console.log(error);
     setAlert(JSON.stringify(error), 'red')
   }
 }
